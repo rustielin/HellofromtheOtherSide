@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">"Hello from the Other Side "</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
