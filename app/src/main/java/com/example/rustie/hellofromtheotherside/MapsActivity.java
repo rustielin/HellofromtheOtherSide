@@ -143,22 +143,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        ImageButton nameButton = (ImageButton) findViewById(R.id.name);
-        nameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences pref = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.remove("activity_executed");
-
-                editor.apply();
-
-                Intent intent = new Intent(MapsActivity.this, SettingsActivity.class);
-                startActivity(intent);
-                finish();
-
-            }
-        });
 
         floatButton = (ImageButton) findViewById(R.id.imageButton);
         floatButton.setOnClickListener(new View.OnClickListener() {

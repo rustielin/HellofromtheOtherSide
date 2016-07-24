@@ -49,7 +49,6 @@
         <activity android:name=".CreateJoinPartyActivity" />
         <activity android:name=".JoinPartyActivity" />
         <activity android:name=".CreatePartyActivity" />
-        <activity android:name=".SettingsActivity"/>
-     </application>
+    </application>
 
 </manifest>
