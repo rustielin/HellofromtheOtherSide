@@ -3,6 +3,7 @@ package com.example.rustie.hellofromtheotherside;
 import android.*;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -13,13 +14,18 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.fitness.data.Device;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -31,6 +37,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener{
 
@@ -122,10 +133,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         floatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),
-                        "Button is clicked", Toast.LENGTH_LONG).show();
 
-                
+                Intent intent = new Intent(MapsActivity.this, CreateJoinPartyActivity.class);
+                startActivity(intent);
+                finish();
+
             }
         });
 
@@ -217,7 +229,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Sends info to database
         Firebase fire =  new Firebase("https://hellofromtheotherside-5eb21.firebaseio.com/");
-        String username  = "Master James";
+
+        fire.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    String name = snapshot.getKey();
+                    Double lat = (Double) snapshot.child("lat").getValue();
+                    Double lng = (Double) snapshot.child("long").getValue();
+
+                    Log.v("iterator", name + lat + " AND " + lng);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+
+        SharedPreferences shared = getSharedPreferences("pref2", Context.MODE_PRIVATE);
+        String name = shared.getString("full_name", "");
+
+
+        String username  = "" + name;
         fire.child(username).child("lat").setValue(location.getLatitude());
         fire.child(username).child("long").setValue(location.getLongitude());
 
