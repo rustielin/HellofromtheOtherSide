@@ -5,16 +5,47 @@
     android:background="@drawable/concert">
 
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Join party something something a;slkdfjasdf"
+        android:text="Key:"
         android:id="@+id/textView"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_weight="1"
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@null" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ok_button"
+        android:id="@+id/key_button"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:textColor="@color/hellocolor"
+        android:textStyle="bold"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:layout_marginTop="16dp" />
 
     <Button
         android:text="Maps"

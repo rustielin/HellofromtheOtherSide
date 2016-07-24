@@ -255,6 +255,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onDataChange(DataSnapshot dataSnapshot) {
 
 
+                // prevent infinite markers.....gets rid of previous data
                 for (int i = 0; i < friendArrayList.size(); i++) {
                     friendArrayList.get(i).remove();
                 }
@@ -296,10 +297,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
-
-
-
-        Toast.makeText(this, "KEY: " + mKey, Toast.LENGTH_SHORT).show();
 
 
         String username  = name;

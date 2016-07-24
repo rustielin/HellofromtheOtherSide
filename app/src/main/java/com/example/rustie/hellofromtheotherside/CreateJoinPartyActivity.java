@@ -22,8 +22,7 @@ public class CreateJoinPartyActivity extends Activity{
         createParty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),
-                        "Button is clicked", Toast.LENGTH_LONG).show();
+
 
                 Intent intent = new Intent(CreateJoinPartyActivity.this, CreatePartyActivity.class);
                 startActivity(intent);
@@ -36,8 +35,7 @@ public class CreateJoinPartyActivity extends Activity{
         joinParty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),
-                        "Button is clicked", Toast.LENGTH_LONG).show();
+
 
                 Intent intent = new Intent(CreateJoinPartyActivity.this, JoinPartyActivity.class);
                 startActivity(intent);
