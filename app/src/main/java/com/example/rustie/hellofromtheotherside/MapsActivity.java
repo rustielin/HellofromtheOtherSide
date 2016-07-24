@@ -38,15 +38,22 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener{
 
     private GoogleMap mMap;
     private LocationManager mLocationManager;
+
+    public MarkerOptions momo;
+
+    public ArrayList<Marker> friendArrayList = new ArrayList<>();
+    public HashMap<String,Marker> friendHash= new HashMap<>();
 
     ImageButton floatButton;
 
@@ -157,6 +164,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
+
+
     }
 
 
@@ -212,6 +221,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
 
+
+
     }
 
     @Override
@@ -221,6 +232,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
+
 
         mLastLocation = location;
         if (mCurrLocationMarker != null) {
@@ -234,14 +246,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+
+                for (int i = 0; i < friendArrayList.size(); i++) {
+                    friendArrayList.get(i).remove();
+                }
+                int i = 0;
+                //friendHash.clear();
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     String name = snapshot.getKey();
                     Double lat = (Double) snapshot.child("lat").getValue();
                     Double lng = (Double) snapshot.child("long").getValue();
 
                     Log.v("iterator", name + lat + " AND " + lng);
-                }
 
+                    if (lat instanceof Double && lng instanceof Double) {
+                        //mMap.addMarker((new MarkerOptions()).position(new LatLng(lat, lng))); // MORE MARKERSSSSSS hashmap
+
+                        momo = new MarkerOptions();
+                        momo.position(new LatLng(lat, lng));
+                        momo.title(name);
+
+                        friendArrayList.add(i, mMap.addMarker(momo));
+                        i++;
+
+                        //friendHash.put(name, mMap.addMarker(momo));
+
+
+                    }
+
+                }
 
             }
 
@@ -256,13 +289,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String name = shared.getString("full_name", "");
 
 
-        String username  = "" + name;
+        String username  = name;
         fire.child(username).child("lat").setValue(location.getLatitude());
         fire.child(username).child("long").setValue(location.getLongitude());
+
+        fire.child(username).child("key").setValue((new Random().nextInt(1000000)));
 
 
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title("Current Position");
@@ -271,12 +308,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
 
-        //stop location updates
-        if (mGoogleApiClient != null) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }
+
     }
 
     @Override
