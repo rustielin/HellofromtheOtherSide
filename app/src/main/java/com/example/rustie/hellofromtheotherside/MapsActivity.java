@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -50,6 +51,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
+import com.google.maps.android.SphericalUtil;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener{
 
     private GoogleMap mMap;
@@ -63,6 +66,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public Long mKey;
 
     public SharedPreferences shared;
+
+    public boolean mVibratedBefore = false;
 
 
 
@@ -313,6 +318,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         i++;
                         j++;
 
+                        // ADDED DIST
+                        SharedPreferences shared = getSharedPreferences("pref2", Context.MODE_PRIVATE);
+                        String full_name = shared.getString("full_name", "");
+
+                        LatLng from = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+
+                        if (!name.equals(full_name)) {
+                            LatLng to = new LatLng(lat, lng);
+
+
+                            Double distance = SphericalUtil.computeDistanceBetween(from, to);
+
+                            if(distance < 5.0 && !mVibratedBefore) {
+                                Vibrator v = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+                                // Vibrate for 500 milliseconds
+                                v.vibrate(1000);
+                                mVibratedBefore = true;
+                            } else if (distance >= 5) {
+                                mVibratedBefore = false;
+                            }
+                        }
 
 
                     }
@@ -355,4 +381,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
 }

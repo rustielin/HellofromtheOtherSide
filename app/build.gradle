@@ -31,5 +31,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.google.android.gms:play-services:9.2.0'
     compile 'com.firebase:firebase-client-android:2.5.2+'
+
+    // added DIST
+    compile 'com.google.maps.android:android-maps-utils:0.3+'
 }
 apply plugin: 'com.google.gms.google-services'
