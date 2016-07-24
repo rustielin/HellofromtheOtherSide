@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">"Hello from the Other Side "</string>
     <string name="title_activity_maps">Map</string>
+    <string name="ask_name">Hello, what is your name?</string>
+    <string name="ok_button">OK</string>
+    <string name="name_hint">Enter your name here</string>
 </resources>
