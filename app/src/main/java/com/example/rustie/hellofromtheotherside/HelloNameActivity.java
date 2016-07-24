@@ -9,9 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.Random;
+
 public class HelloNameActivity extends AppCompatActivity {
 
     private static String full_name;
+    private static int key;
     private static EditText edit_text;
     private static SharedPreferences shared;
     @Override
@@ -31,6 +34,7 @@ public class HelloNameActivity extends AppCompatActivity {
 
         edit_text = (EditText) findViewById(R.id.editText);
         full_name = edit_text.getText().toString();
+        key = (new Random()).nextInt(1000000);
         Button name_button = (Button) findViewById(R.id.name_button);
 
 
@@ -40,6 +44,7 @@ public class HelloNameActivity extends AppCompatActivity {
                 shared = getSharedPreferences("pref2", MODE_PRIVATE);
                 SharedPreferences.Editor editor = shared.edit();
                 editor.putString("full_name", edit_text.getText().toString());
+                editor.putInt("key", key);
                 editor.commit();
                 Intent i = new Intent();
                 i.setClass(HelloNameActivity.this, MapsActivity.class);

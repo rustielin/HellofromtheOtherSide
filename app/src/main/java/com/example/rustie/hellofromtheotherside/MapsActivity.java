@@ -55,6 +55,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public ArrayList<Marker> friendArrayList = new ArrayList<>();
     public HashMap<String,Marker> friendHash= new HashMap<>();
 
+    public Long mKey;
+
     ImageButton floatButton;
 
     GoogleApiClient mGoogleApiClient;
@@ -239,6 +241,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mCurrLocationMarker.remove();
         }
 
+        // shared preferences stuff with name and key
+        SharedPreferences shared = getSharedPreferences("pref2", Context.MODE_PRIVATE);
+        String name = shared.getString("full_name", "");
+
+        mKey = (Long) (long) shared.getInt("key", 0);
+
         //Sends info to database
         Firebase fire =  new Firebase("https://hellofromtheotherside-5eb21.firebaseio.com/");
 
@@ -254,13 +262,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //friendHash.clear();
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     String name = snapshot.getKey();
+
                     Double lat = (Double) snapshot.child("lat").getValue();
                     Double lng = (Double) snapshot.child("long").getValue();
+                    Long keyLong = (Long) snapshot.child("key").getValue();
+
+
 
                     Log.v("iterator", name + lat + " AND " + lng);
 
-                    if (lat instanceof Double && lng instanceof Double) {
-                        //mMap.addMarker((new MarkerOptions()).position(new LatLng(lat, lng))); // MORE MARKERSSSSSS hashmap
+
+                    if (lat instanceof Double && lng instanceof Double  && keyLong instanceof Long
+                            && keyLong.equals(mKey)) {
+
 
                         momo = new MarkerOptions();
                         momo.position(new LatLng(lat, lng));
@@ -269,7 +283,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         friendArrayList.add(i, mMap.addMarker(momo));
                         i++;
 
-                        //friendHash.put(name, mMap.addMarker(momo));
 
 
                     }
@@ -285,15 +298,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
 
-        SharedPreferences shared = getSharedPreferences("pref2", Context.MODE_PRIVATE);
-        String name = shared.getString("full_name", "");
+
+        Toast.makeText(this, "KEY: " + mKey, Toast.LENGTH_SHORT).show();
 
 
         String username  = name;
         fire.child(username).child("lat").setValue(location.getLatitude());
         fire.child(username).child("long").setValue(location.getLongitude());
-
-        fire.child(username).child("key").setValue((new Random().nextInt(1000000)));
+        fire.child(username).child("key").setValue(mKey);
 
 
         //Place current location marker
@@ -307,7 +319,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         //move map camera
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
 
 
     }
