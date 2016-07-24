@@ -1,4 +1,4 @@
 OutsideHacks IV
 
-[Our website](hello-fromtheoutside.weebly.com)
+hello-fromtheoutside.weebly.com
 
