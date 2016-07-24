@@ -13,7 +13,7 @@
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:id="@+id/imageButton"
-        android:src="@drawable/settings3"
+        android:src="@drawable/settings4"
         android:background="@drawable/oval"
         android:elevation="10dp"
         android:layout_gravity="bottom|right"

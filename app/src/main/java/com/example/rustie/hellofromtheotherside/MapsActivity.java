@@ -62,6 +62,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public Long mKey;
 
+    public SharedPreferences shared;
+
+
 
     ImageButton floatButton;
 
@@ -142,6 +145,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        shared = getSharedPreferences("pref2", Context.MODE_PRIVATE);
+        String name = shared.getString("full_name", "");
+
+        if (name.equals("")) {
+            shared = getSharedPreferences("ActivityPREF", MODE_PRIVATE);
+            SharedPreferences.Editor editor = shared.edit();
+            editor.remove("activity_executed");
+            editor.apply();
+
+            Intent intent = new Intent(MapsActivity.this, HelloNameActivity.class);
+            startActivity(intent);
+            finish();
+
+
+        }
 
 
         floatButton = (ImageButton) findViewById(R.id.imageButton);
