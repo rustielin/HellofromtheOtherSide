@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -23,6 +24,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.google.android.gms.ads.formats.NativeAd;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.fitness.data.Device;
@@ -34,6 +36,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+
+
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -56,6 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public HashMap<String,Marker> friendHash= new HashMap<>();
 
     public Long mKey;
+
 
     ImageButton floatButton;
 
@@ -137,6 +143,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        ImageButton nameButton = (ImageButton) findViewById(R.id.name);
+        nameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences pref = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.remove("activity_executed");
+
+                editor.apply();
+
+                Intent intent = new Intent(MapsActivity.this, SettingsActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
 
         floatButton = (ImageButton) findViewById(R.id.imageButton);
         floatButton.setOnClickListener(new View.OnClickListener() {
@@ -218,8 +240,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-
-
     }
 
     @Override
@@ -285,9 +305,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         momo.position(new LatLng(lat, lng));
                         momo.title(name);
 
-                        friendArrayList.add(i, mMap.addMarker(momo));
+                        Marker tm;
+                        friendArrayList.add(i, tm = mMap.addMarker(momo));
                         i++;
                         j++;
+
+
 
                     }
 
@@ -311,12 +334,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("Current Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        mCurrLocationMarker = mMap.addMarker(markerOptions);
+//
+//
+//        MarkerOptions markerOptions = new MarkerOptions();
+//        markerOptions.position(latLng);
+//        markerOptions.title("Current Position");
+//        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+//        mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
