@@ -9,13 +9,15 @@
         android:text="Create a Party"
         android:id="@+id/create_party_button"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:layout_marginTop="210dp"/>
 
     <Button
         android:text="Join a Party"
         android:id="@+id/join_party_button"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"/>
 
 
 </LinearLayout>

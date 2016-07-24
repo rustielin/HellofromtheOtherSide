@@ -44,4 +44,11 @@ public class CreateJoinPartyActivity extends Activity{
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(CreateJoinPartyActivity.this, MapsActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

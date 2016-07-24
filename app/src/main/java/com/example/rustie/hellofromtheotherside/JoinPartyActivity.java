@@ -29,7 +29,6 @@ public class JoinPartyActivity extends Activity{
 
         setContentView(R.layout.activity_join_party);
 
-
         SharedPreferences pref = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
 
         SharedPreferences.Editor ed = pref.edit();
@@ -46,7 +45,10 @@ public class JoinPartyActivity extends Activity{
             public void onClick(View view) {
                 shared = getSharedPreferences("pref2", MODE_PRIVATE);
                 SharedPreferences.Editor editor = shared.edit();
+                editor.remove("key");
+
                 editor.putInt("key", Integer.parseInt(edit_text.getText().toString()));
+
                 editor.commit();
                 Intent i = new Intent();
                 i.setClass(JoinPartyActivity.this, MapsActivity.class);
@@ -60,9 +62,6 @@ public class JoinPartyActivity extends Activity{
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),
-                        "Button is clicked", Toast.LENGTH_LONG).show();
-
                 Intent intent = new Intent(JoinPartyActivity.this, MapsActivity.class);
                 startActivity(intent);
                 finish();
@@ -70,5 +69,12 @@ public class JoinPartyActivity extends Activity{
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(JoinPartyActivity.this, CreateJoinPartyActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

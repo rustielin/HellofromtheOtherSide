@@ -161,13 +161,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
-
-
-
-
-
-
     }
 
 
@@ -225,6 +218,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
+
+
     }
 
     @Override
@@ -254,11 +249,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                int numChildren = (int) dataSnapshot.getChildrenCount();
+
+                int j = 0;
 
                 // prevent infinite markers.....gets rid of previous data
                 for (int i = 0; i < friendArrayList.size(); i++) {
                     friendArrayList.get(i).remove();
                 }
+                friendArrayList.clear();
+
                 int i = 0;
                 //friendHash.clear();
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
@@ -268,13 +268,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Double lng = (Double) snapshot.child("long").getValue();
                     Long keyLong = (Long) snapshot.child("key").getValue();
 
+                    if (j >= numChildren)
+                        break;
 
-
-                    Log.v("iterator", name + lat + " AND " + lng);
 
 
                     if (lat instanceof Double && lng instanceof Double  && keyLong instanceof Long
                             && keyLong.equals(mKey)) {
+
+
+
+                        Log.v("Marker Placed ", name + lat + " AND " + lng);
 
 
                         momo = new MarkerOptions();
@@ -283,8 +287,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         friendArrayList.add(i, mMap.addMarker(momo));
                         i++;
-
-
+                        j++;
 
                     }
 

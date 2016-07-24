@@ -4,12 +4,32 @@
     android:layout_height="match_parent"
     android:background="@drawable/concert">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Key:"
+        android:id="@+id/thisYourKey"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your Key Here"
         android:id="@+id/key_text_view"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share this with your friends ^ "
         android:layout_gravity="center"
         android:layout_weight="1"
         android:textColor="@color/white"
