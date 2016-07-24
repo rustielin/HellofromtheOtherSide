@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/concert"
+    android:background="@drawable/outside_hello1"
 
     >
 
@@ -18,21 +18,11 @@
         <!--android:textColor = "#000000"-->
         <!--/>-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:textSize="30sp"
-        android:id="@+id/settingsTextView"
-        android:text="Settings"/>
-
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/settingsTextView"
+        android:layout_centerInParent="true"
         android:paddingTop="70dp">
 
         <TextView
@@ -40,7 +30,7 @@
             android:layout_height="match_parent"
             android:text = "Key:"
             android:textSize="26sp"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             />
 
         <EditText
@@ -49,7 +39,7 @@
             android:paddingLeft="10dp"
             android:textSize = "26sp"
             android:textStyle="bold"
-            android:textColor = "#000000"
+            android:textColor = "#FFFFFF"
             android:id="@+id/editText"
             android:selectAllOnFocus="true"
             />
@@ -58,31 +48,19 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/settingsTextView"
-        android:paddingTop="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text = "Name:"
-            android:textSize="26sp"
-            android:textColor="#000000"/>
+
         <EditText
-            android:layout_below="@+id/settingsTextView"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:textSize = "26sp"
+            android:layout_alignParentEnd="true"
+            android:textSize = "36sp"
             android:textStyle="bold"
-            android:textColor = "#000000"
+            android:textColor = "#FFFFFF"
             android:id="@+id/editName"
             android:selectAllOnFocus="true"
             />
-
-    </LinearLayout>
 
     <!--<EditText-->
         <!--android:layout_width="match_parent"-->
@@ -108,6 +86,7 @@
         android:textSize = "18sp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>
+
 
 
 </RelativeLayout>
