@@ -2,6 +2,7 @@ package com.example.rustie.hellofromtheotherside;
 
 import android.*;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -12,6 +13,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
@@ -33,6 +36,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private LocationManager mLocationManager;
+
+    ImageButton floatButton;
 
     GoogleApiClient mGoogleApiClient;
     LocationRequest mLocationRequest;
@@ -111,6 +116,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+
+        floatButton = (ImageButton) findViewById(R.id.imageButton);
+        floatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),
+                        "Button is clicked", Toast.LENGTH_LONG).show();
+
+                
+            }
+        });
 
         Firebase.setAndroidContext(this);
 

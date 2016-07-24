@@ -35,7 +35,7 @@
 
         <activity
             android:name=".HelloNameActivity"
-            android:label="@string/title_activity_maps">
+            android:label="HelloFromTheOutside">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

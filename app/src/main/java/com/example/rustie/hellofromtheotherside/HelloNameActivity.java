@@ -1,6 +1,7 @@
 package com.example.rustie.hellofromtheotherside;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,5 +25,7 @@ public class HelloNameActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.rightin, R.anim.leftout);
             }
         });
+
+        SharedPreferences sp = getPreferences(MODE_PRIVATE);
     }
 }
