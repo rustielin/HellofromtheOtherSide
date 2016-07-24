@@ -44,7 +44,7 @@ public class FriendManager {
         // key, user
         //DatabaseReference usersRef = ref.child("users");
 
-        Map<String,> users = new HashMap<>();
+        Map<String,User> users = new HashMap<>();
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override

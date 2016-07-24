@@ -8,7 +8,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.rustie.hellofromtheotherside.HelloNameActivity"
-    android:background="@drawable/outsidelands">
+    android:background="@drawable/partay">
+
+
 
     <LinearLayout
         android:orientation="vertical"
@@ -68,6 +70,7 @@
             android:paddingStart="16dp"
             android:paddingTop="16dp"
             android:layout_marginTop="16dp" />
+
     </LinearLayout>
 
 </RelativeLayout>

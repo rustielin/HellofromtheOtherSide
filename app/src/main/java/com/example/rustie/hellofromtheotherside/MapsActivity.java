@@ -198,6 +198,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mCurrLocationMarker.remove();
         }
 
+        //Sends info to database
+        Firebase fire =  new Firebase("https://hellofromtheotherside-5eb21.firebaseio.com/");
+        String username  = "Master James";
+        fire.child(username).child("lat").setValue(location.getLatitude());
+        fire.child(username).child("long").setValue(location.getLongitude());
+
+
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
